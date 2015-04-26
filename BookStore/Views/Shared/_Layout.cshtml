@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Book Land</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        <h3>@Html.ActionLink("'There is no friend as loyal as a book.' -  Ernest Hemingway", "Index", "Home")
+                    </h3>
+                             </p>
+               </div>
+                <div class="float-right">
+                   @* <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>*@
+                    <nav>
+                    <div style="width: auto; background-color: #728ea7;">
+                        <ul id="menu">
+                        
+                            @if (Request.IsAuthenticated) {
+                                <strong>@Html.Encode(User.Identity.Name)</strong>
+                                @Html.ActionLink("Sign Out", "Logout", "User")
+                            }
+                            else {
+        @*    @Html.ActionLink("Register", "Register", "User")*@
+                               
+                                @Html.ActionLink("Sign In", "Login", "User")
+                            }
+   
+                            @*    @if (ViewBag.Role == false)
+                            {   
+                                <li>@Html.ActionLink("Clients","Index","Client")</li>
+                                <li>@Html.ActionLink("Accounts", "Index", "ClientAccount")</li>
+                            }*@
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Register", "Register", "User")</li>
+                            @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        </ul>
+
+                    </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Book Land</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

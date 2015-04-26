@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Welcome to Book Land";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+            </hgroup>
+              <h2>@ViewBag.Message</h2>
+        </div>
+       
+    </section>
+}
+
+@model IEnumerable<BookStore.Models.BooksModel>
+
+
+<h2> Our Book List</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+       @if (@HttpContext.Current.Session["user"].ToString() == "user")
+       {
+           <td>
+               @Html.ActionLink("Buy", "Buy","Books", new {id = item.Id}, null) 
+
+           </td>
+       }
+         @if (@HttpContext.Current.Session["user"].ToString() == "admin")
+         {
+          <td>
+            @Html.ActionLink("Edit", "Edit","Books",new { id=item.Id }, null) |
+            @Html.ActionLink("Details", "Details","Books", new { id=item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete","Books", new { id=item.Id }, null)
+          </td>
+         }
+    </tr>
+}
+
+    @if (@HttpContext.Current.Session["user"].ToString() == "admin")
+    {
+        <p>
+             @Html.ActionLink("Create New Book", "Create", "Books")
+        </p>
+    }
+
+     @if (@HttpContext.Current.Session["user"].ToString() == "user")
+    {
+        <p>
+             @Html.ActionLink("View Your Cart", "Index", "Cart")
+        </p>
+    }
+
+</table>

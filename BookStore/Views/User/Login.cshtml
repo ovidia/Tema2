@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+
+@model BookStore.Models.LogInModel
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+   
+
+
+    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+    <div>
+        <fieldset>
+            <legend>Login</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model=> model.Username)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <div class="editor-label">
+                @Html.CheckBoxFor(model => model.RememberMe)
+                @Html.LabelFor(model => model.RememberMe)
+            </div>
+             <p>
+            <input type="submit" value="Log in" />
+        </p>
+        </fieldset>
+    </div>
+}
